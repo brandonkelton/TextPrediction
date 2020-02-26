@@ -48,6 +48,9 @@ namespace TextPrediction
             if (text.Length > length)
             {
                 newNode.Add(text, length);
+            } else
+            {
+                newNode.IsWord = true;
             }
         }
 
