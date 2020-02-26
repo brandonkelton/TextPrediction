@@ -40,7 +40,11 @@ namespace TextPrediction
                     if (characters.Count > 0)
                     {
                         RemoveLastCharacter();
-                        EvaluateAndFindResults();
+                        if (characters.Count > 0)
+                        {
+                            EvaluateAndFindResults();
+                            Console.SetCursorPosition(cursorLeft, cursorTop);
+                        }
                     }
                     else Console.SetCursorPosition(cursorLeft, cursorTop);
                 }
@@ -48,6 +52,8 @@ namespace TextPrediction
                 {
                     characters.Add(readKey.KeyChar);
                     EvaluateAndFindResults();
+                    cursorLeft = cursorLeft + 1;
+                    Console.SetCursorPosition(cursorLeft, cursorTop);
                 }
             }
         }
@@ -61,9 +67,6 @@ namespace TextPrediction
                 Console.SetCursorPosition(0, cursorTop + i + 5);
                 Console.Write(results[i].Text);
             }
-
-            cursorLeft = cursorLeft + 1;
-            Console.SetCursorPosition(cursorLeft, cursorTop);
         }
 
         private void RemoveLastCharacter()
