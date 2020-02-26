@@ -51,18 +51,19 @@ namespace TextPrediction
             }
         }
 
-        public Node[] FindWords(string text)
+        public Node[] FindWords(string text, int length = 0)
         {
             var nodeList = new List<Node>();
 
-            if (this.IsWord && this.Text.StartsWith(text, StringComparison.OrdinalIgnoreCase))
+            if (this.IsWord && this.Text.StartsWith(text.Substring(0, length), StringComparison.OrdinalIgnoreCase) && this.Text.Length >= text.Length)
             {
                 nodeList.Add(this);
             }
 
-            foreach (var node in Nodes.Where(n => n.Text.StartsWith(text, StringComparison.OrdinalIgnoreCase)))
+            length = text.Length > length ? length + 1 : text.Length;
+            foreach (var node in Nodes.Where(n => n.Text.StartsWith(text.Substring(0, length), StringComparison.OrdinalIgnoreCase)))
             {
-                nodeList.AddRange(node.FindWords(text));
+                nodeList.AddRange(node.FindWords(text, length));
             }
 
             return nodeList.ToArray();
