@@ -50,5 +50,22 @@ namespace TextPrediction
                 newNode.Add(text, length);
             }
         }
+
+        public Node[] FindWords(string text)
+        {
+            var nodeList = new List<Node>();
+
+            if (this.IsWord && this.Text.StartsWith(text, StringComparison.OrdinalIgnoreCase))
+            {
+                nodeList.Add(this);
+            }
+
+            foreach (var node in Nodes.Where(n => n.Text.StartsWith(text, StringComparison.OrdinalIgnoreCase)))
+            {
+                nodeList.AddRange(node.FindWords(text));
+            }
+
+            return nodeList.ToArray();
+        }
     }
 }

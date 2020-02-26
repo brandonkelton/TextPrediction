@@ -8,7 +8,7 @@ namespace TextPrediction
     public class NodeBuilder
     {
         public string[] TextItems { get; private set; }
-        public Node Node { get; private set; } = new Node();
+        public Node RootNode { get; private set; } = new Node();
 
         public NodeBuilder(string[] textItems)
         {
@@ -18,11 +18,11 @@ namespace TextPrediction
         public void Build()
         {
             var alphabet = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
-            alphabet.ToList().ForEach(c => this.Node.Add(c.ToString()));
+            alphabet.ToList().ForEach(c => this.RootNode.Add(c.ToString()));
 
             foreach (var item in this.TextItems)
             {
-                Node.Add(item);
+                RootNode.Add(item);
             }
         }
     }
